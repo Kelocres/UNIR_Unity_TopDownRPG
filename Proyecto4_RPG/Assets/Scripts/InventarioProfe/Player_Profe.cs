@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player_Profe : MonoBehaviour
 {
-    [SerializeField] private GameManagerSO gM;
-    
+    [SerializeField] private GM_Profe gM;
+
     private float inputH;
     private float inputV;
 
@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        
+
         LecturaInputs();
 
 
@@ -94,9 +94,11 @@ public class Player : MonoBehaviour
         colliderDelante = LanzarCheck();
         if (colliderDelante == null) return;
 
-        if(colliderDelante.gameObject.TryGetComponent(out Interactuable inter))
+        if (colliderDelante.gameObject.TryGetComponent(out Item_Profe item))
         {
-           inter.Interactuar();
+            //gM.NewItem(item.MisDatos);
+            //item.Obtain();
+            item.Interactuar();
         }
     }
 
@@ -104,7 +106,7 @@ public class Player : MonoBehaviour
     IEnumerator Mover()
     {
         moviendo = true;
-        
+
         while (transform.position != puntoDestino)
         {
             transform.position = Vector3.MoveTowards(transform.position, puntoDestino, velocidadMovimiento * Time.deltaTime);
@@ -135,6 +137,6 @@ public class Player : MonoBehaviour
 
     private void OnDestroy()
     {
-        
+
     }
 }
