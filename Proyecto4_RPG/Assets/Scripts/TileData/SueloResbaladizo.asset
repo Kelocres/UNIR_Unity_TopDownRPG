@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e2b5cfa27daa21469275cd5bf5e850c, type: 3}
+  m_Name: SueloResbaladizo
+  m_EditorClassIdentifier: 
+  tiles:
+  - {fileID: 11400000, guid: 3864eaeed905f8442b2ce473c06c2d1f, type: 2}
+  - {fileID: 11400000, guid: 1e646221448118a469e8ddd04bcdd394, type: 2}
+  - {fileID: 11400000, guid: 50f5726830427ed4a8e4639e821812b9, type: 2}
+  walkingSpeed: 5
+  slippery: 1
+  fall: 0

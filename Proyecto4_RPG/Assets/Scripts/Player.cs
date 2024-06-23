@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private GameManagerSO gM;
+    [SerializeField] private bool empezarConGM = false;
     
     private float inputH;
     private float inputV;
@@ -12,6 +13,9 @@ public class Player : MonoBehaviour
     // Para que el movimiento sea de cuadrícula en cuadrícula
     private Vector3 puntoDestino;
     private bool moviendo;
+
+    // Cuando el personaje esté en suelo resbaladizo
+    private bool resbaladizo = false;
 
     // Para detectar lo que hay en la cuadrícula siguiente
     private Vector3 puntoInteraccion;
@@ -31,15 +35,23 @@ public class Player : MonoBehaviour
 
     public bool Interactuando { get => interactuando; set => interactuando = value; }
 
+    // Para ser afectado por los tiles del suelo
+    private MapManager mapManager;
+
     private void Start()
     {
         moviendo = false;
         anim = GetComponent<Animator>();
 
         //Cargar el jugador en la escena según lo que esté guardado en GameManager
-        transform.position = gM.InitPlayerPosition;
-        anim.SetFloat("inputH", gM.InitPlayerRotation.x);
-        anim.SetFloat("inputV", gM.InitPlayerRotation.y); //22:09
+        if (empezarConGM)
+        {
+            transform.position = gM.InitPlayerPosition;
+            anim.SetFloat("inputH", gM.InitPlayerRotation.x);
+            anim.SetFloat("inputV", gM.InitPlayerRotation.y); //22:09
+        }
+
+        mapManager = FindObjectOfType<MapManager>();
     }
     private void Update()
     {
@@ -54,10 +66,12 @@ public class Player : MonoBehaviour
     private void LecturaInputs()
     {
         //Para recoger el input pero evitando las diagonales
-        if (inputV == 0)
-            inputH = Input.GetAxisRaw("Horizontal");
-        if (inputH == 0)
-            inputV = Input.GetAxisRaw("Vertical");
+        
+            if (inputV == 0)
+                inputH = Input.GetAxisRaw("Horizontal");
+            if (inputH == 0)
+                inputV = Input.GetAxisRaw("Vertical");
+        
 
         // Para interaccionar
         if (Input.GetKeyDown(KeyCode.E))
@@ -107,16 +121,45 @@ public class Player : MonoBehaviour
         
         while (transform.position != puntoDestino)
         {
-            transform.position = Vector3.MoveTowards(transform.position, puntoDestino, velocidadMovimiento * Time.deltaTime);
+            float tileSpeed = 1f;
+            TileData currentTile = mapManager.GetTileInfo(transform.position);
+
+            if (currentTile != null)
+            {
+                if (currentTile.fall) Caida();
+
+                resbaladizo = currentTile.slippery;
+                tileSpeed = currentTile.walkingSpeed;
+            }
+            
+            transform.position = Vector3.MoveTowards(transform.position, puntoDestino, velocidadMovimiento * tileSpeed * Time.deltaTime);
+
+            // Si se ha llegado al punto de destino 
+            // PERO!
+            // el suelo es resbaladizo y no hemos chocado con nada 
+            if (transform.position == puntoDestino)
+            {
+                puntoInteraccion = transform.position + ultimoInput;
+                if (resbaladizo && LanzarCheck() == null )
+                //if (resbaladizo)
+                    puntoDestino = puntoInteraccion;               
+            }
+            
             yield return null;
         }
         // Ante un nuevo destino, necesito refrescar
-        puntoInteraccion = transform.position + ultimoInput;
+        //puntoInteraccion = transform.position + ultimoInput;
         moviendo = false;
 
-        // Animación idle
-        //if (inputH == 0 && inputV == 0)
-        //    anim.SetBool("isMoving", false);
+    }
+
+    private void Caida()
+    {
+        //Parar movimiento
+        StopAllCoroutines();
+        //Animación de caída
+        //Muerte
+        Destroy(gameObject);
 
     }
 
