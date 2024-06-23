@@ -4,20 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[CreateAssetMenu(fileName ="Scriptable Objects/GameManager")]
+[CreateAssetMenu(fileName = "Scriptable Objects/GameManager")]
 public class GameManagerSO : ScriptableObject
 {
     private Player player;
     private SistemaInventario inventario;
-    public SistemaInventario Inventario { get => inventario;}
-    
+    public SistemaInventario Inventario { get => inventario; }
+
 
     //Para conservar la información del jugador de una escena a otra
-    [SerializeField] private Vector3 initPlayerPosition = new Vector3(-3.5f, -3.5f, 0);
-    [SerializeField] private Vector2 initPlayerRotation = new Vector2(0, 1);
+    [SerializeField] private Vector3 initPlayerPosition = new Vector3(-1.5f, -7.5f, 0);
+    [SerializeField] private Vector2 initPlayerRotation = new Vector2(0, -1);
     public Vector3 InitPlayerPosition { get => initPlayerPosition; set => initPlayerPosition = value; }
     public Vector2 InitPlayerRotation { get => initPlayerRotation; set => initPlayerRotation = value; }
-    
+
 
     //Para controlar qué items no deben aparecer en la escena:
     [NonSerialized] private Dictionary<int, bool> items = new Dictionary<int, bool>();

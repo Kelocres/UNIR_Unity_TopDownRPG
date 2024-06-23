@@ -16,6 +16,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e6b77c4572cf04549bcd04f2922b3b67, type: 2}
   - {fileID: 11400000, guid: 7f0ee3cdd0be0ed4fb0916ce80235d58, type: 2}
   - {fileID: 11400000, guid: a00179f30ff78d44ba0cb1ea45cc81a6, type: 2}
-  walkingSpeed: 0
+  walkingSpeed: 1
   slippery: 0
   fall: 1
