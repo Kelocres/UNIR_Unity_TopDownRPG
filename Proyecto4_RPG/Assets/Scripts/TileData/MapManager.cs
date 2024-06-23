@@ -19,6 +19,10 @@ public class MapManager : MonoBehaviour
         foreach (var tileData in tileDatas)
             foreach (var tile in tileData.tiles)
                 dataFromTiles.Add(tile, tileData);
+
+        //Para comprobar
+        //foreach (var data in dataFromTiles)
+        //    Debug.Log(data);
             
     }
 
@@ -26,19 +30,20 @@ public class MapManager : MonoBehaviour
     void Update()
     {
         // Prueba para comprobar la identificación de tiles
-        /*
+        
         if(Input.GetMouseButtonDown(0))
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int gridPosition = map.WorldToCell(mousePosition);
 
             TileBase clickedTile = map.GetTile(gridPosition);
-            //Debug.Log("At position " + gridPosition + " there is a " + clickedTile);
+            Debug.Log("At position " + gridPosition + " there is a " + clickedTile);
 
-            float walkingSpeed = dataFromTiles[clickedTile].walkingSpeed;
-            Debug.Log("Walking speed on" + clickedTile +": "+walkingSpeed);
+            //float walkingSpeed = dataFromTiles[clickedTile].walkingSpeed;
+            //if(dataFromTiles[clickedTile].fall)
+            //Debug.Log("Caes");
 
-        }*/
+        }
     }
 
     public float GetTileWalkingSpeed(Vector2 worldPosition)

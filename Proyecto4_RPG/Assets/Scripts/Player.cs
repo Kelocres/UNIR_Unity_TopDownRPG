@@ -122,14 +122,14 @@ public class Player : MonoBehaviour
         while (transform.position != puntoDestino)
         {
             float tileSpeed = 1f;
-            TileData currentTile = mapManager.GetTileInfo(transform.position);
+            TileData currentTile = mapManager?.GetTileInfo(transform.position);
+            bool fall = false;
 
             if (currentTile != null)
             {
-                if (currentTile.fall) Caida();
-
                 resbaladizo = currentTile.slippery;
                 tileSpeed = currentTile.walkingSpeed;
+                fall = currentTile.fall;
             }
             
             transform.position = Vector3.MoveTowards(transform.position, puntoDestino, velocidadMovimiento * tileSpeed * Time.deltaTime);
@@ -142,7 +142,10 @@ public class Player : MonoBehaviour
                 puntoInteraccion = transform.position + ultimoInput;
                 if (resbaladizo && LanzarCheck() == null )
                 //if (resbaladizo)
-                    puntoDestino = puntoInteraccion;               
+                    puntoDestino = puntoInteraccion;
+                
+                if (fall)
+                    Caida();
             }
             
             yield return null;
@@ -156,7 +159,7 @@ public class Player : MonoBehaviour
     private void Caida()
     {
         //Parar movimiento
-        StopAllCoroutines();
+        //StopAllCoroutines(); // Esta línea aquí mata la función
         //Animación de caída
         //Muerte
         Destroy(gameObject);
