@@ -53,8 +53,9 @@ MonoBehaviour:
   radioInteraccion: 0.45
   queEsColisionable:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 193
   velocidadMovimiento: 5
+  gameOverScene: StartScreen
 --- !u!212 &6291859904428436887
 SpriteRenderer:
   m_ObjectHideFlags: 0

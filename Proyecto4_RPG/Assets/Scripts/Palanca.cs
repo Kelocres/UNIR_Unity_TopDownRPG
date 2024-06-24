@@ -16,6 +16,10 @@ public class Palanca : MonoBehaviour, Interactuable
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        //Empezar según estado
+        SpriteSegunEstado();
+        if (delPalanca != null) delPalanca(estadoPalanca);
     }
 
     private void SpriteSegunEstado()

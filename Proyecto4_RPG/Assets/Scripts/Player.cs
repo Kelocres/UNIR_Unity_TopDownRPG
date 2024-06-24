@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -39,6 +40,10 @@ public class Player : MonoBehaviour
     // Para ser afectado por los tiles del suelo
     private MapManager mapManager;
 
+    //Si el jugador muere
+    [SerializeField] private string gameOverScene;
+    private bool estaMuerto = false;
+
     private void Start()
     {
         moviendo = false;
@@ -56,7 +61,8 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        
+        if (estaMuerto) return;
+
         LecturaInputs();
 
 
@@ -122,7 +128,7 @@ public class Player : MonoBehaviour
     {
         moviendo = true;
         
-        while (transform.position != puntoDestino)
+        while (transform.position != puntoDestino && !estaMuerto)
         {
             float tileSpeed = 1f;
             TileData currentTile = mapManager?.GetTileInfo(transform.position);
@@ -148,7 +154,7 @@ public class Player : MonoBehaviour
                     puntoDestino = puntoInteraccion;
                 
                 if (fall)
-                    Caida();
+                    MuerteJugador();
             }
             
             yield return null;
@@ -159,24 +165,24 @@ public class Player : MonoBehaviour
 
     }
 
-    private void Caida()
+
+
+    public void MuerteJugador()
     {
         //Parar movimiento
         //StopAllCoroutines(); // Esta línea aquí mata la función
-        //Animación de caída
-        //Muerte
-        Destroy(gameObject);
+        //Animación de muerte por trampa o caída
 
+        //Muerte
+        estaMuerto = true;
+        GetComponent<SpriteRenderer>().enabled = false;
+        StartCoroutine(EsparaParaCargarPorMuerte());
     }
 
-    public void MuertePorTrampa()
+    private IEnumerator EsparaParaCargarPorMuerte()
     {
-        //Parar movimiento
-        //StopAllCoroutines(); // Esta línea aquí mata la función
-        //Animación de muerte por trampa
-
-        //Muerte
-        Destroy(gameObject);
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(gameOverScene);
     }
 
     private Collider2D LanzarCheck()

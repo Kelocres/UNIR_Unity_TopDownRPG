@@ -38,8 +38,8 @@ public class TrampaPinchos : MonoBehaviour
 
         if (palanca != null) palanca.delPalanca += SenyalPalanca;
 
-        CambiarEstado(estadoInicio);
-        EmpezarCorutina();
+        
+        //EmpezarCorutina();
     }
 
     public void SenyalPalanca(bool estadoPalanca)
@@ -56,6 +56,7 @@ public class TrampaPinchos : MonoBehaviour
 
     public void EmpezarCorutina()
     {
+        CambiarEstado(estadoInicio);
         StartCoroutine(corutina);
     }
 
@@ -142,7 +143,7 @@ public class TrampaPinchos : MonoBehaviour
         
         Collider2D collision = Physics2D.OverlapCircle(transform.position, 0.45f);
         if (collision!=null && collision.CompareTag("Player"))
-              collision.GetComponent<Player>().MuertePorTrampa();
+              collision.GetComponent<Player>().MuerteJugador();
 
         collidertrampa.enabled = true;
         collidertrampa.isTrigger = true;

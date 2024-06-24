@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FirstDungeon.unity
     guid: 38d5f872dc87e7e40b436d1411c08fc6
+  - enabled: 1
+    path: Assets/Scenes/ExitFromDungeon.unity
+    guid: 5725ce0724c83c340b5cc26a598d1d84
+  - enabled: 1
+    path: Assets/Scenes/StartScreen.unity
+    guid: 82c29f61d2afe9f4da361b3e88783dcb
   m_configObjects: {}
