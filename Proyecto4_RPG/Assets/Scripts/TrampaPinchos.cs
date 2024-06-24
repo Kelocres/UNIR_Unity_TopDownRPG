@@ -7,7 +7,7 @@ public enum EstadoTrampa
 {
     A_Guardado,
     B_Saliendo,
-    C_Ataque
+    C_Fuera
 
 }
 public class TrampaPinchos : MonoBehaviour
@@ -18,13 +18,12 @@ public class TrampaPinchos : MonoBehaviour
     [SerializeField] private float tiempoGuardado;
     [SerializeField] private Sprite imagenSaliendo;
     [SerializeField] private float tiempoSaliendo;
-    [SerializeField] private Sprite imagenAtaque;
-    [SerializeField] private float tiempoAtaque;
-    [SerializeField] private float tiempoBloqueado;
+    [SerializeField] private Sprite imagenFuera;
+    [SerializeField] private float tiempoFuera;
 
     private SpriteRenderer spriteRenderer;
     private EstadoTrampa estado;
-    [SerializeField] private EstadoTrampa estadoPreActivación;
+    [SerializeField] private EstadoTrampa estadoInicio;
     private Collider2D collidertrampa;
     private IEnumerator corutina;
 
@@ -33,13 +32,13 @@ public class TrampaPinchos : MonoBehaviour
 
     void Start()
     {
-        estado = EstadoTrampa.A_Guardado;
         spriteRenderer = GetComponent<SpriteRenderer>();
         collidertrampa = GetComponent<Collider2D>();
         corutina = Cambiando();
 
         if (palanca != null) palanca.delPalanca += SenyalPalanca;
 
+        CambiarEstado(estadoInicio);
         EmpezarCorutina();
     }
 
@@ -80,13 +79,13 @@ public class TrampaPinchos : MonoBehaviour
     {
 
         //Debug.Log("SiguienteEstado()");
-        if (estado == EstadoTrampa.A_Guardado)
+        if (estado == EstadoTrampa.A_Guardado && tiempoSaliendo > 0)
             CambiarASaliendo();
 
-        else if (estado == EstadoTrampa.B_Saliendo)
-            CambiarAAtaque(); 
+        else if (estado == EstadoTrampa.B_Saliendo && tiempoFuera > 0)
+            CambiarAFuera(); 
 
-        else 
+        else if (estado == EstadoTrampa.C_Fuera && tiempoGuardado > 0)
             CambiarAGuardado();
     }
 
@@ -98,8 +97,8 @@ public class TrampaPinchos : MonoBehaviour
         else if (estado == EstadoTrampa.B_Saliendo)
             CambiarASaliendo();
 
-        else if (estado == EstadoTrampa.C_Ataque)
-            CambiarAAtaque();
+        else if (estado == EstadoTrampa.C_Fuera)
+            CambiarAFuera();
     }
 
     public float TiempoEstadoActual()
@@ -111,8 +110,8 @@ public class TrampaPinchos : MonoBehaviour
         if (estado == EstadoTrampa.B_Saliendo)
             return tiempoSaliendo;
 
-        if (estado == EstadoTrampa.C_Ataque)
-            return tiempoAtaque;
+        if (estado == EstadoTrampa.C_Fuera)
+            return tiempoFuera;
 
         return 0f;
     }
@@ -135,11 +134,11 @@ public class TrampaPinchos : MonoBehaviour
         return tiempoSaliendo;
     }
 
-    private float CambiarAAtaque()
+    private float CambiarAFuera()
     {
         //Debug.Log("Ataque");
-        estado = EstadoTrampa.C_Ataque;
-        spriteRenderer.sprite = imagenAtaque;
+        estado = EstadoTrampa.C_Fuera;
+        spriteRenderer.sprite = imagenFuera;
         
         Collider2D collision = Physics2D.OverlapCircle(transform.position, 0.45f);
         if (collision!=null && collision.CompareTag("Player"))
@@ -147,7 +146,7 @@ public class TrampaPinchos : MonoBehaviour
 
         collidertrampa.enabled = true;
         collidertrampa.isTrigger = true;
-        return tiempoBloqueado;
+        return tiempoFuera;
     }
 
 
