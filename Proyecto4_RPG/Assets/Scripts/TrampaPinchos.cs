@@ -30,7 +30,7 @@ public class TrampaPinchos : MonoBehaviour
     [SerializeField] private Palanca palanca;
     [SerializeField] private bool activarEnTrue;
 
-    void Start()
+    void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         collidertrampa = GetComponent<Collider2D>();
