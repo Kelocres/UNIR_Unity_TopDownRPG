@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6291859904428436880}
   - component: {fileID: 6291859904428436884}
-  - component: {fileID: 6291859904428436882}
   - component: {fileID: 6291859904428436887}
   - component: {fileID: 6291859904428436886}
   - component: {fileID: 6291859904428436885}
@@ -50,53 +49,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gM: {fileID: 11400000, guid: 64971f18abb7b7a419bfabfa3282286d, type: 2}
+  empezarConGM: 0
   radioInteraccion: 0.45
   queEsColisionable:
     serializedVersion: 2
     m_Bits: 192
   velocidadMovimiento: 5
---- !u!114 &6291859904428436882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6291859904428436891}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc32765f98463c14f970cc0e0f1b2969, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  marcoInventario: {fileID: 0}
-  botones:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!212 &6291859904428436887
 SpriteRenderer:
   m_ObjectHideFlags: 0

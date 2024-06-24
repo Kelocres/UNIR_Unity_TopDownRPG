@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -102,6 +103,8 @@ public class Player : MonoBehaviour
             anim.SetBool("isMoving", false);
     }
 
+    
+
     private void LanzarInteraccion()
     {
         //Comprobar qué tenemos delante
@@ -164,6 +167,16 @@ public class Player : MonoBehaviour
         //Muerte
         Destroy(gameObject);
 
+    }
+
+    public void MuertePorTrampa()
+    {
+        //Parar movimiento
+        //StopAllCoroutines(); // Esta línea aquí mata la función
+        //Animación de muerte por trampa
+
+        //Muerte
+        Destroy(gameObject);
     }
 
     private Collider2D LanzarCheck()
